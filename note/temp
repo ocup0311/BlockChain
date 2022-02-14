@@ -2,7 +2,24 @@
 
 
 # Bitcoin 比特幣 ============================================================================
-＊ 公鑰是地址: 錢發送去公鑰
+＊ 名詞相貌:
+      私鑰: (隨機生成)
+            WIF (Wallet import Format)
+            52: KzPkBcF6BHR1pM2oAjCDR4wUAUtxbHcVVjN9R162w1asuhzcCSwY
+            51: 5JmXoYTRXPvWufwVEw9KyVFLGSDWPpUAiygKV9S2ouQ8YxRCPCo
+      公鑰: ("私鑰" -- SECP256K1 --> "公鑰")
+
+      公鑰哈希: ("公鑰" -- SHA256 --> "公鑰哈希")
+
+      校驗: ("0x00+公鑰哈希" -- double SHA256 --> "temp" -- 取前四位元？ --> "校驗")
+
+      錢包地址: ("0x00+公鑰哈希+校驗" -- BASE58 --> "錢包地址")
+            34？
+
+
+
+
+＊ 公鑰是地址: 錢發送去公鑰？
 
 ＊ UTXO Model(Unspent Transaction Outputs)
       txn_445..: 交易的位址？
@@ -12,7 +29,7 @@
       output: 是簽名？
             私鑰 + 交易訊息 -> 簽名
             => 簽名 + 交易訊息 -> 公鑰
-            => 證明公鑰是我的, 即可拿來當 input？ 怎麼證明？
+            => 證明公鑰是我的, 即可拿來當 input？ 私鑰加密
 
 ＊block 中紀錄: 
       ＊紀錄: 
@@ -22,7 +39,6 @@
             Unspent: 
                   full node:  (高可信) 用 hieght 方式向前證明至創世塊, 檢查沒其他人用一樣的 input, 檢查 output 的 input。
                    spv node:  (低可信) 用 deepth 方式向後證明, 夠深就相信他, 一般 6 層可信。(猜測算力進步會需更多層？)
-
 
 
 
