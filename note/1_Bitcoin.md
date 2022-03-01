@@ -3,9 +3,10 @@
 - 名詞相貌:
 
   - 私鑰: (隨機生成)
-    WIF (Wallet import Format)
-    52: KzPkBcF6BHR1pM2oAjCDR4wUAUtxbHcVVjN9R162w1asuhzcCSwY
-    51: 5JmXoYTRXPvWufwVEw9KyVFLGSDWPpUAiygKV9S2ouQ8YxRCPCo
+
+        WIF (Wallet import Format)
+        52: KzPkBcF6BHR1pM2oAjCDR4wUAUtxbHcVVjN9R162w1asuhzcCSwY
+        51: 5JmXoYTRXPvWufwVEw9KyVFLGSDWPpUAiygKV9S2ouQ8YxRCPCo
 
   - 公鑰: ("私鑰" -- SECP256K1 --> "公鑰") (此種方法 公私 一對一)
 
@@ -24,10 +25,10 @@
   - input: 證明是自己的 UTXO
   - output: 簽名 + 交易訊息
 
-            output: 是簽名？
-            私鑰 + 交易訊息 -> 簽名
-            => 簽名 + 交易訊息 -> 公鑰
-            => 證明公鑰是我的，即可拿來當 input？ 私鑰加密
+        output: 是簽名？
+        私鑰 + 交易訊息 -> 簽名
+        => 簽名 + 交易訊息 -> 公鑰
+        => 證明公鑰是我的，即可拿來當 input？ 私鑰加密
 
 - 但 UTXO 最大的缺點就在於他是"Stateless"的，這對於其上應用程式開發非常的不利
 
