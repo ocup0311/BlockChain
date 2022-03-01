@@ -44,7 +44,6 @@
 
 ＊ 確保每筆交易都有人挖  <-- 經過越多 block 未處理的加權越高, 礦工每次需分兩區, 一區保留給優先權高的, 另一區才自選 (可選 fee 高的)
 
-# temp =======================================================================================
 ＊ 計算 hash 使用的參數: 
       前一個區塊的哈希值(previous_hash)
       區塊產生當下的時間戳(timestamp)
@@ -58,26 +57,39 @@
 
 ＊ 比特幣每過2016個區塊, 會根據前面2016個區塊的平均出塊時間調整難度, 如果前面2016個區塊的平均出塊時間大於十分鐘, 代表現在的運算力過少、挖礦難度偏高使出塊時間變長, 因此需要降低挖礦難度
 
+# BTC vs BCH vs BSV ==========================================================================
 ; https://matters.news/@janstockcoin/2021%E5%B9%B4%E4%B8%80%E5%A4%9C%E8%87%B4%E5%AF%8C-%E5%B8%82%E5%80%BC30%E5%84%84%E7%BE%8E%E5%85%83-%E4%BB%80%E9%BA%BC%E6%98%AF%E6%AF%94%E7%89%B9%E5%B9%A3sv-bsv-bafyreieg7wnspicnmoywooow3fi2eulab5m64iv43oke53trlfhtl7vd3m
 ; https://cointelegraph.com/blockchain-for-beginners/bitcoin-vs-bitcoin-cash-whats-the-difference-between-btc-and-bch
 ; https://www.ptt.cc/bbs/DigiCurrency/M.1547383190.A.E37.html
+
+＊ BTC "Bitcoin Core"
+＊ BCH "Bitcoin Cash"
+＊ BSV "Bitcoin Satoshi's Vision (比特幣中本聰願景)"
+
 ＊ BTC fork to BCH fork to BSV
-＊ BTC (Bitcoin) vs BCH (Bitcoin Cash) vs BSV (Bitcoin Satoshi s Vision) (比特幣中本聰願景):
+
+      # Compare --------------------------------------------------
       Difficulty adjustment
+      
       Block size (SegWit)
-            BTC: 1 MB
-            BCH in growing: 32 MB (2021.10)
-            BSV is looking to raise its block size to 1 TB
+            BTC: "1 MB"
+            BCH in growing: "32 MB" (2021.10)
+            BSV is looking to raise its block size to "1 TB"
+      
       Smart contracts and decentralized finance
             BTC: No
             BCH: YES (加入使用語言 Cashscript) (Some of the tools already developed include CashSuffle and CashFusion, meant to improve privacy on the network.)
-      Token issuance
-            Omni layer
-            Simple Ledger Protocol (SLP)
-      Replace-by-fee (RBF) (BTC?)
+      
+      Token issuance (like Ethereum do)
+            Omni layer、Simple Ledger Protocol (SLP) 
+      
+      Replace-by-fee (RBF)
+      ; https://github.com/bitcoin/bips/blob/master/bip-0125.mediawiki
       ; https://support.bitpay.com/hc/en-us/articles/360051205632-What-is-RBF-Replace-By-Fee-
-      所以無法取消交易？還是因為取消重發太麻煩, 所以直接用 RBF 的方法改 fee？
-      (原本發了就不能改了？能真的避免？)
+            BTC: YES
+                  The most widely-used form of RBF today is BIP125 opt-in RBF as implemented in Bitcoin Core 0.12.0.
+                  所以無法取消交易？還是因為取消重發太麻煩, 所以直接用 RBF 的方法改 fee？
+                  (原本發了就不能改了？能真的避免？)
 
 
 
