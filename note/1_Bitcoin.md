@@ -10,7 +10,7 @@
 
   - 公鑰: ("私鑰" -- SECP256K1 --> "公鑰") (此種方法 公私 一對一)
 
-  - 公鑰哈希: ("公鑰" -- SHA256 --> "公鑰哈希")
+  - 公鑰哈希: ("公鑰" -- SHA256 --> "公鑰哈希") (pubKeyHash)
 
   - 校驗: ("0x00+公鑰哈希" -- double SHA256 --> "temp" -- 取前四位元？ --> "校驗")
 
@@ -19,16 +19,15 @@
 
 - 公鑰是地址: 錢發送去公鑰？
 
-- UTXO Model(Unspent Transaction Outputs)
+# [UTXO Model](https://steemit.com/cn-cryptocurrency/@antonsteemit/utxo) (Unspent Transaction Outputs)
 
-  - txn_445..: 交易的位址？
-  - input: 證明是自己的 UTXO
-  - output: 簽名 + 交易訊息
+- txn_445..: 交易的位址？
+- input: 證明是自己的 UTXO
+- output:
 
-        output: 是簽名？
-        私鑰 + 交易訊息 -> 簽名
-        => 簽名 + 交易訊息 -> 公鑰
-        => 證明公鑰是我的，即可拿來當 input？ 私鑰加密
+      私鑰 + 交易訊息 -> 簽名
+      => 簽名 + 交易訊息 -> 公鑰
+      => 證明公鑰是我的，即可拿來當 input？ 私鑰加密
 
 - 但 UTXO 最大的缺點就在於他是"Stateless"的，這對於其上應用程式開發非常的不利
 
@@ -40,6 +39,30 @@
     - Unspent:
       - full node: (高可信) 用 hieght 方式向前證明至創世塊，檢查沒其他人用一樣的 input，檢查 output 的 input。
       - spv node: (低可信) 用 deepth 方式向後證明，夠深就相信他，一般 6 層可信。(猜測算力進步會需更多層？)
+
+# [Bitcoin Script:](https://en.bitcoin.it/wiki/Script)
+
+- pkScript (scriptPubKey)
+
+  ```
+  OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
+  ```
+
+  - OP_DUP:
+    Duplicates the top stack item.
+  - OP_HASH160:
+    The input is hashed twice: first with SHA-256 and then with RIPEMD-160.
+  - OP_EQUALVERIFY:
+    Same as OP_EQUAL, but runs OP_VERIFY afterward.
+    - OP_EQUAL: Returns 1 if the inputs are exactly equal, 0 otherwise.
+    - OP_VERIFY:
+      Marks transaction as invalid if top stack value is not true. The top stack value is removed.
+  - OP_CHECKSIG:
+    The entire transaction's outputs, inputs, and script (from the most recently-executed OP_CODESEPARATOR to the end) are hashed. The signature used by OP_CHECKSIG must be a valid signature for this hash and public key. If it is, 1 is returned, 0 otherwise.
+
+<!-- ECDSA, mathematical trapdoor -->
+
+# 其他特性
 
 - 確保每筆交易都有人挖 <-- 經過越多 block 未處理的加權越高，礦工每次需分兩區，一區保留給優先權高的，另一區才自選 (可選 fee 高的)
 
@@ -71,9 +94,10 @@
 
   - Difficulty adjustment
 
-  - Block size (SegWit)
+  - Block size
 
     - BTC: "1 MB"
+      - [SegWit](https://academy.binance.com/zt/articles/a-beginners-guide-to-segretated-witness-segwit)：將簽名與交易分開存，使一個 block 可以放更多交易
     - BCH in growing: "32 MB" (2021.10)
     - BSV is looking to raise its block size to "1 TB"
 
