@@ -3,10 +3,14 @@
 - 名詞相貌:
 
   - 私鑰: (隨機生成)
+    (test) f1e6514500eb50db2509d8ace69d59394c71cf1a258a4b9415d269d296e02075
 
-        WIF (Wallet import Format)
-        52: KzPkBcF6BHR1pM2oAjCDR4wUAUtxbHcVVjN9R162w1asuhzcCSwY
-        51: 5JmXoYTRXPvWufwVEw9KyVFLGSDWPpUAiygKV9S2ouQ8YxRCPCo
+    Hex: 0x224b2d71866c35d3701f0fcdd7871cb191c2ae25068602759fcb9b59d9100e00
+    WIF: 5J5PZqvCe1uThJ3FZeUUFLCh2FuK9pZhtEK4MzhNmugqTmxCdwE
+
+        - [WIF (Wallet import Format)](https://river.com/learn/terms/w/wallet-import-format-wif/)
+          - 52: KzPkBcF6BHR1pM2oAjCDR4wUAUtxbHcVVjN9R162w1asuhzcCSwY
+          - 51: 5JmXoYTRXPvWufwVEw9KyVFLGSDWPpUAiygKV9S2ouQ8YxRCPCo
 
   - 公鑰: ("私鑰" -- SECP256K1 --> "公鑰") (此種方法 公私 一對一)
 
@@ -15,9 +19,7 @@
   - 校驗: ("0x00+公鑰哈希" -- double SHA256 --> "temp" -- 取前四位元？ --> "校驗")
 
   - 錢包地址: ("0x00+公鑰哈希+校驗" -- BASE58 --> "錢包地址") （比 SHA1 以 SHA3）
-    34？
-
-- 公鑰是地址: 錢發送去公鑰？
+    (test) 0x7859049861E214c4c07667ef52510Dd0491C9a8A
 
 # [UTXO Model](https://steemit.com/cn-cryptocurrency/@antonsteemit/utxo) (Unspent Transaction Outputs)
 
@@ -61,6 +63,11 @@
     The entire transaction's outputs, inputs, and script (from the most recently-executed OP_CODESEPARATOR to the end) are hashed. The signature used by OP_CHECKSIG must be a valid signature for this hash and public key. If it is, 1 is returned, 0 otherwise.
 
 <!-- ECDSA, mathematical trapdoor -->
+
+# Q
+
+1. remeeded at input 就是已經被哪個交易當成 input。但不懂的是那個編號是 block 編號？交易編號？那這張圖整個是一個交易而已？還是整個 block 的交易混在一起？
+2. 不懂的是，為什麼每筆 output 都要記 script 而不是只記公鑰？因為可能有很多種驗證方式，交易時可自己選？
 
 # 其他特性
 
