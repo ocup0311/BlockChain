@@ -29,6 +29,8 @@
 [eos]: https://zh.wikipedia.org/wiki/EOS.IO
 [共識機制（consensus）]: https://tokens-economy.gitbook.io/consensus
 [poc]: https://medium.com/ihashing/%E4%BB%80%E9%BA%BC%E6%98%AF%E5%AE%B9%E9%87%8F%E8%AD%89%E6%98%8E-proof-of-capacity-poc-81042197f03
+[solana]: https://www.leewayhertz.com/solana-blockchain-using-poh/
+[poh]: https://dyor-crypto.fandom.com/wiki/Proof-of-History_(PoH)
 
  <!-- ref -->
 
@@ -79,6 +81,12 @@
   - 容量證明
   - Proof-of-space，PoSpace
   - 典型案例：Filecoin
+
+- [PoH]
+
+  - Proof-of-History
+  - 目前最夯
+  - 典型案例：[Solana]
 
 ### 相關名詞
 
