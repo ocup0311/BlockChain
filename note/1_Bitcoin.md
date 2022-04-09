@@ -12,6 +12,7 @@
 [硬分岔比較2]: https://cointelegraph.com/blockchain-for-beginners/bitcoin-vs-bitcoin-cash-whats-the-difference-between-btc-and-bch
 [硬分岔比較3]: https://www.ptt.cc/bbs/DigiCurrency/M.1547383190.A.E37.html
 [bitcoin scalability problem]: https://en.wikipedia.org/wiki/Bitcoin_scalability_problem
+[bloom filter]: https://github.com/bitcoin/bips/blob/master/bip-0037.mediawiki
 
 <!-- ref -->
 
@@ -56,8 +57,8 @@
     - 簽名
   - 驗算生成:
     - Unspent:
-      - full node: (高可信) 用 hieght 方式向前證明至創世塊，檢查沒其他人用一樣的 input，檢查 output 的 input。
-      - [spv] node: (低可信) 用 deepth 方式向後證明，夠深就相信他，一般 6 層可信。(猜測算力進步會需更多層？)
+      - full Node: (高可信) 用 hieght 方式向前證明至創世塊，檢查沒其他人用一樣的 input，檢查 output 的 input。
+      - [spv] Node: (低可信) 用 deepth 方式向後證明，夠深就相信他，一般 6 層可信。(猜測算力進步會需更多層？)
 
 # [Bitcoin Script:]
 
@@ -142,3 +143,28 @@
       - 所以無法取消交易？
       - 還是因為取消重發太麻煩，所以直接用 RBF 的方法改 fee？
       - (原本發了就不能改了？能真的避免？)
+
+# 暫存
+
+- `Priority = Sum (Value of Input * Input Age) / Transaction Size`
+
+  - `High Priority` > `57,600,000` (`= 100,000,000 satoshis * 144 blocks / 250 bytes`)
+
+- spv Node 取得自己的 UTXO Pool
+
+  - 建立 [Bloom Filter]。可以想像它是一個過瀘器，用來過瀘大部份不屬於 Wallet 的 Transaction。
+  - inv message (inventory) 有：待選 Transaction 所屬 Block 的 head、Merkle Path、以及 Transaction 本身
+  - 建立 UTXO Pool，暫時存放尚未被花費的屬於該 Wallet 的 Transaction
+
+- 交易過程：
+
+  - Mallory 將產生的 tx1 傳送給 Carol，Carol 檢查 tx1，並且等 10 分鐘，讓 tx1 進入 blockchain 的最新 Block，也就是這時 tx1 的 confirmation 次數為 1。
+
+  - A 給 B 比特幣：
+
+    1. `Create`：A 取得 B 地址，自己產生 Transaction
+    2. `Broadcast`：將 Transaction 廣播出去
+    3. `Propagate`：繁殖使得更多 Node (甚至所有 Node) 都有該 Transaction
+    4. `Verify`：Node 各自驗證 Transaction 沒問題，則放入 Transaction Pool 待處理。待處理的 Transaction 夠多時，Node 挑選產生出 Candidate Block，開始挖礦
+    5. `Confirmed`：挖好礦，將該 Block 加在鏈的最後，並廣播出去 (1 Confirmation)
+    6. `6 Confirmation`：於鏈上倒數第 6 個 Block，一般相信已定案
